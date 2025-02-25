@@ -1,4 +1,5 @@
 
+
 "use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -51,7 +52,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 w-full z-50 px-6 py-4 transition-all duration-400 ${
-        isScrolled ? "bg-[#213555]" : "bg-transparent"
+        isScrolled ? "bg-[#6482AD]" : "bg-transparent"
       }`}
     >
       <div className="flex items-center justify-between">
@@ -63,9 +64,16 @@ export default function Header() {
             width={40}
             height={40}
             className="rounded-full"
-            onClick={() =>
-              document.getElementById("home").scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={() =>{
+              const homeSection = document.getElementById("home");
+              if (homeSection) {
+                homeSection.scrollIntoView({ behavior: "smooth" });
+              } else {
+                router.push("/#home");
+              }
+            }}
+            
+             
           />
           <h1 className="text-xl font-bold text-white">DEMIREN HOTEL AND RESTAURANT</h1>
         </div>
@@ -159,7 +167,7 @@ export default function Header() {
           <Button variant="link" style={{ color: "white" }} onClick={handleSignIn}>
             Login
           </Button>
-          <Button className="bg-blue-500 hover:bg-blue-600" style={{ color: "white" }} onClick={handleBooking}>
+          <Button className="bg-[#6482AD] hover:bg-[#7FA1C3]" style={{ color: "white" }} onClick={handleBooking}>
           BOOK NOW
         </Button>
         </div>

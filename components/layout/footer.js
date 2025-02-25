@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 const Footer = () => {
     const router = useRouter();
   return (
-    <footer id ="contact" className="bg-gray-800 text-white p-8 mt-8">
+    <footer id ="contact" className="bg-gray-800 text-white ">
     <div className="container mx-auto">
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-3 ">
         {/* Quick Links */}
         <div>
           <h3 className="font-bold text-lg mb-2">Quick Links</h3>

@@ -1,4 +1,5 @@
 "use client";
+import * as React from "react"
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   faWifi,
   faConciergeBell,
@@ -32,16 +33,6 @@ import {
   faWheelchair,
 } from "@fortawesome/free-solid-svg-icons";
 
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
 import {
   Accordion,
   AccordionContent,
@@ -55,14 +46,14 @@ import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor, PopoverTitle } 
 import { format} from "date-fns"
 import { useEffect } from "react";
 import { motion } from "framer-motion";
+
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -102,19 +93,19 @@ export default function Home() {
   ];
 
 
-  const images = [
-    "/images/image1.jpg",
-    "/images/image2.jpg",
-    "/images/image3.jpg",
-    "/images/image4.jpg",
-  ]
+  // const images = [
+  //   "/images/image1.jpg",
+  //   "/images/image2.jpg",
+  //   "/images/image3.jpg",
+  //   "/images/image4.jpg",
+  // ]
 
   
   const galleryImages = {
     roomPhotos: [
-      "/images/room1.jpg",
-      "/images/room2.jpg",
-      "/images/room3.jpg",
+      "/assets/gallery/gall1.jpg",
+      "/assets/gallery/gall2.jpg",
+      "/assets/gallery/gall3.jpg",
     ],
     meetingPhotos: [
       "/images/meeting1.jpg",
@@ -144,8 +135,7 @@ export default function Home() {
 
   useEffect(() => {
     sessionStorage.setItem("webAPI", "http://localhost/demiren_API/web-side.php");
-  })
-
+  }, [])
 
   return (
     
@@ -289,14 +279,16 @@ export default function Home() {
 </section>
 
 {/* Section 2: Carousel with Images */}
-<section id="about" className="bg-[#213555] text-white py-16 px-6 md:px-16">
-  <div className="text-center mb-12">
-  <h2 className="text-lg text-gray-500 tracking-widest">ABOUT US</h2>
+<section id="about" className="bg-[#6482AD] text-white py-16 px-6 md:px-10 lg:px-20 flex flex-col ">
+  
+  <div className="text-center mb-8">
+  <h2 className="text-3xl font-bold text-[#F5EDED] tracking-widest">ABOUT US</h2>
   </div>
 
-  <div className="flex flex-col md:flex-row items-start justify-between gap-4">
+  <div className="flex flex-col md:flex-row items-start justify-between gap-6">
     {/* Left Column - About Us Text */}
-    <div className="md:w-1/2 max-w-[600px]">
+    
+    <div className="md:w-1/2 max-w-[600px] mt-14">
       <p className="text-lg leading-relaxed">
         At <span className="font-semibold">Demiren Hotel and Restaurant</span>, we are committed to providing 
         exceptional services to our valued customers. Located in the heart of 
@@ -304,31 +296,47 @@ export default function Home() {
         we strive to deliver quality, comfort, and a memorable experience.
       </p>
       <p className="text-lg mt-6 leading-relaxed">
-        Founded in <span className="font-semibold">1963</span>, our journey began with a passion for hospitality. 
+        Founded in <span className="font-semibold">1995</span>, our journey began with a passion for hospitality. 
         Over the years, we have grown into a trusted name, known for our dedication to excellence 
         and customer satisfaction.
+      </p>
+      <p className="text-lg mt-6 leading-relaxed">
+      Popular points of interest near <span className="font-semibold">Demiren Hotel </span>,  include Museo de Oro, Capitol University Museum of Three Cultures and City Museum of Cagayan de Oro and Heritage Studies Center. Laguindingan International Airport is 31 km away.
       </p>
 
     
     </div>
 
     {/* Right Column - Images */}
-    <div className="md:w-1/2 flex flex-col items-center gap-4">
-      <Image 
-        src="/assets/restau.jpg" 
-        alt="Restaurant" 
-        width={600} 
-        height={350} 
-        className="rounded-lg shadow-lg"
-      />
-      <Image 
-        src="/assets/hotel.jpg" 
-        alt="Hotel Facilities" 
-        width={600} 
-        height={350} 
-        className="rounded-lg shadow-lg"
-      />
-    </div>
+   <div className="md:w-1/2 flex items-center justify-center">
+     <Carousel className="w-full max-w-lg">
+      <CarouselContent>
+        {[
+          "/assets/about/aboutficdem.jpg",
+          "/assets/about/about2.jpg",
+          "/assets/about/about3.jpg",
+          "/assets/about/about4.jpg",
+          "/assets/about/about5.jpg",
+        ].map((imageSrc, index) => (
+          <CarouselItem key={index}>
+            <div className="p-1">
+              <Card>
+                <CardContent className="flex aspect-square items-center justify-center p-6">
+                  <img
+                    src={imageSrc}
+                    alt={`Slide ${index + 1}`}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      {/* Navigation Buttons */}
+      <CarouselPrevious /> 
+      <CarouselNext />
+    </Carousel></div>
   </div>
 </section>
 
@@ -336,11 +344,11 @@ export default function Home() {
 
 
 {/* Section 3: hotel facilities */}
-<section id ="facilities" className="flex flex-col items-center text-center">
-<h2 className="text-lg text-white tracking-widest mt-12">FACILITIES OF DEMIREN HOTEL</h2>
+<section id ="facilities" className="flex flex-col items-center text-center bg-[#E2DAD6] p-8">
+<h2 className="text-3xl font-bold text-[#6482AD] tracking-widest mt-8 ">FACILITIES OF DEMIREN HOTEL</h2>
 
   <div className="mt-6 w-full max-w-7xl">
-    <p className="text-lg font-semibold text-white">Most popular facilities</p>
+    <p className="text-lg font-semibold text-[#7FA1C3]">Most popular facilities</p>
 
     <div className="flex justify-center">
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6">
@@ -362,9 +370,9 @@ export default function Home() {
 
 
 {/* Section 4: Gallery */}
-<section id="gallery" className="flex flex-col items-center text-center bg-[#F5EFE7] p-8">
+<section id="gallery" className="flex flex-col items-center text-center bg-[#F5EDED] p-8">
       {/* Gallery Title */}
-      <h2 className="text-lg text-gray-500 tracking-widest">GALLERY</h2>
+      <h2 className="text-3xl font-bold text-[#826A4A] tracking-widest mt-8">GALLERY</h2>
 
       {/* Room Photos */}
       <h1 className="text-4xl font-semibold text-[#826A4A] mt-2">ROOM PHOTOS</h1>
@@ -393,11 +401,11 @@ export default function Home() {
 
 
 {/* Section 5: FQnA */}
-<section className="bg-[#F5EFE7] p-8">
+<section className="bg-[#F5EFE7] p-8 lg:p-12">
   <div className="flex flex-col lg:flex-row gap-8">
     {/* Left Column - Image */}
-    <div className="flex-1">
-      <img src="/path/to/your/image.jpg" alt="Hotel Image" className="w-full h-auto rounded-lg" />
+    <div className="w-1/2 relative hidden md:block">
+      <img src="/assets/restau.jpg" alt="Hotel Image" className="w-full h-auto rounded-lg" />
     </div>
 
     {/* Right Column - FAQ */}
