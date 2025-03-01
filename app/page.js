@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import {
   faWifi,
   faConciergeBell,

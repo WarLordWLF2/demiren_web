@@ -107,7 +107,7 @@ export default function Login() {
 
             {/* Forgot Password Link */}
             <div className="text-right">
-              <a href="/forgot-password" className="text-blue-500 text-sm underline">
+              <a href="/otp_pages/forgot-password" className="text-blue-500 text-sm underline">
                 Forgot Password?
               </a>
             </div>
