@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,13 +13,25 @@ const ForgotPass = () => {
     const router = useRouter();
 
    const handleResetRequest = async (e) => {
-    e.prevenDefault();
+    e.preventDefault();
     const resetForm = new FormData();
     resetForm.append("method", "emailOTP");    
-    resetForm.append("json", JSON.stringify(email));
+    resetForm.append("json", JSON.stringify( {email} ));
 
-    try {} catch (err) {
-        
+    try {
+        const conn = await axios.post(mainURL, resetForm);
+        if (conn.data.response) {
+            sessionStorage.setItem("OTP", conn.data.otp_code);
+            sessionStorage.setItem("email_OTP", email);
+
+            alert("Code has been sent into your email");
+            router.push('/otp_pages/verify-OTP');
+            
+        } else {
+            alert(conn.data.message);
+        }
+    } catch (err) {
+        console.log("Error: Could not connect to API");
     }
    }
 
