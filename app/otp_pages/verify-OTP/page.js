@@ -24,7 +24,7 @@ const VerifyOTP = () => {
 
   const getNewPass = async (e) => {
     e.preventDefault();
-    console.log(resetDetails, inpOTP, cfrmNewPass);
+    console.log(resetDetails, inpOTP, cfrmNewPass); // Remove
     const resetPassForm = new FormData();
     resetPassForm.append("method", "forgotPass");
     resetPassForm.append("json", JSON.stringify(resetDetails));
