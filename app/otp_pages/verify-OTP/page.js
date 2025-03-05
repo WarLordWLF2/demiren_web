@@ -26,8 +26,8 @@ const VerifyOTP = () => {
     e.preventDefault();
     console.log(resetDetails, inpOTP, cfrmNewPass);
     const resetPassForm = new FormData();
-    resetPassForm.append("method", "changePassword");
-    resetPassForm.append("json", "forgotPass");
+    resetPassForm.append("method", "forgotPass");
+    resetPassForm.append("json", JSON.stringify(resetDetails));
 
     if (resetDetails.newPass !== cfrmNewPass) {
       alert("Passwords do not match");
@@ -42,7 +42,10 @@ const VerifyOTP = () => {
     try {
       const conn = await axios.post(webAPI, resetPassForm);
       if (conn.data.response) {
-        router.push("../signin");
+        sessionStorage.removeItem("email_OTP");
+        sessionStorage.removeItem("OTP");
+        alert(conn.data.message);
+        router.push('/signin'); 
       } else {
         alert("Cannot Update Password");
       }
